@@ -11,16 +11,17 @@ namespace StringReader
             bool active = true;
             bool rerun = true;
             string myString;
-            do
-            {
 
-                do
+            do //Keep App Active
+            {
+                
+                do //Take Input String
                 {
-                    //Take Input String
                     Console.WriteLine("Please enter string to trim:");
                     myString = Console.ReadLine();
-                    if (myString == "") Console.WriteLine("no text entered");
+                    if (myString == "") Console.WriteLine("No text entered. Try Again. [0]");
                 } while (myString == "");
+                
                 //Actions
                 Console.WriteLine($"Un-trimmed string is:\n{myString}\n");
                 Console.WriteLine($"Trimmed String:\n{stringTrim(myString)}\n");
@@ -28,19 +29,30 @@ namespace StringReader
                 Console.WriteLine($"White Spaces Trimmed:\n{countWhiteSpaces(myString)}\n");
                 Console.WriteLine($"Reverse it:\n{reverseIt(stringTrim(myString))}\n");
                 Console.WriteLine($"Reversed white trimmed:\n{countWhiteSpaces(reverseIt(myString))}\n");
-                Console.WriteLine($"Is Palindrom? {pallindrome(stringTrim(myString))}");
-                //Console.WriteLine($"Is Email? {isEmail(myString)}");
-                do
+                Console.WriteLine($"Is Palindrom? {pallindrome(stringTrim(myString))}\n");
+
+                do //Rerun Prompt
                 {
                     Console.WriteLine("would you like to enter a new string? (y/n)");
                     string ans2 = Console.ReadLine();
-                    if (ans2.ToLower() == "y") rerun = true;
-                    else if (ans2.ToLower() == "n") rerun = false;
-                    else { Console.WriteLine("not a valid answer"); }
+                    if (ans2.ToLower() == "y") break;
+                    if (ans2.ToLower() == "n")
+                    {
+                        rerun = false; active = false;
+                    }
+                    else 
+                    { 
+                        Console.WriteLine("Not a valid answer. Try again. [1]"); 
+                    }
+
                 } while (rerun == true);
+
             } while (active == true);
+                
 
         }
+
+        //String Manipulations
         static string stringTrim(string s)
         {
             string trimmedString = s.TrimStart();
@@ -73,19 +85,6 @@ namespace StringReader
             return orig == reversed;
 
         }
-
-        //static bool isEmail(string s)
-        //{
-        //    try
-        //    {
-        //        MailAddress m = new MailAddress(s);
-        //        return true;
-        //    }
-        //    catch (FormatException)
-        //    {
-        //        return false;
-        //    }
-        //}
 
     }
 }
